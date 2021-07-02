@@ -1,0 +1,37 @@
+#+TITLE: Readme
+
+
+* Installation
+** Doom Emacs
+Add following to [[file:~/.doom.d/packages.el][packages.el]]
+
+#+begin_src emacs-lisp
+(package! info-noter
+   :recipe (:host github
+           :repo "eugercek/info-noter.el"))
+#+end_src
+*** Bind Keybindings
+This is not very well taugth!
+#+begin_src emacs-lisp
+(map!  :mode Info-mode
+       :leader
+       "e l" 'info-heading->org-heading)
+#+end_src
+* Workflow
+I always take note with respect to the content I read.
+For example If I'm reading a book you can see all chapters' name in my org-mode notes.
+One of the biggest problem is just this 7 command :(
+
+1. =yy= Copy Line
+2. =SPC w l= Go to notes buffer
+3. =p= Paste
+4. Handle extra ====================
+5. =SPC *= My personal binding for =org-ctrl-start=
+6. =O= for go to new line
+7. =SPC w h= for =Info-mode= buffer
+
+[[https://xkcd.com/1319/][Relevant xkcd]]
+* TODO TODO List
+** Functions
+- Add send source code blocks
+- Add go to buffer after insert the heading
