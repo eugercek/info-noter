@@ -1,6 +1,3 @@
-#+TITLE: Readme
-
-
 * Installation
 ** Doom Emacs
 Add following to [[file:~/.doom.d/packages.el][packages.el]]
@@ -12,11 +9,30 @@ Add following to [[file:~/.doom.d/packages.el][packages.el]]
 #+end_src
 *** Bind Keybindings
 This is not very well taugth!
+
 #+begin_src emacs-lisp
 (map!  :mode Info-mode
        :leader
        "e l" 'info-heading->org-heading)
 #+end_src
+
+=x= is not bound to anything on my setup you can bind like this too
+
+#+begin_src emacs-lisp
+(map!  :mode Info-mode
+       :n "x" 'info-heading->org-heading)
+#+end_src
+*** Load package
+To load package in startup we use =use-package!=
+Also included keybind mapping in here.
+#+begin_src emacs-lisp
+(use-package! info-noter
+  :config
+  (map!  :mode Info-mode
+         :n "x" 'info-heading->org-heading))
+#+end_src
+
+
 * Workflow
 I always take note with respect to the content I read.
 For example If I'm reading a book you can see all chapters' name in my org-mode notes.

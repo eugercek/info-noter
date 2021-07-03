@@ -48,4 +48,5 @@ If it's already selected it'll used."
         ((boundp 'info-noter-org-file) info-noter-org-file)
         (t (ask))))
 
-;;; info-note.el ends he
+(provide 'info-noter)
+;;; info-note.el ends here
