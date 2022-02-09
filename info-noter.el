@@ -40,21 +40,23 @@ Else: Choose selectively."
   (interactive "P")
   (info-noter--set-info-file arg))
 
-(defun info-noter/copy-heading ()
+(defun info-noter/copy-heading (arg)
   "Send current heading to `info-noter/note-file' file.
-To change already setted `info-noter-org-file' call function with some
-ARG like \\[universal-argument]."
-  (interactive)
+Choose level of heading with ARG.
+nil: One level down.
+4: Same level
+16: One level up"
+  (interactive "P")
   (let ((text (thing-at-point 'line t)))
     (with-current-buffer info-noter/current-note-file
       (goto-char (point-max))
       (insert text)
       (forward-line -1)
-      (org-ctrl-c-star))))
+      (org-toggle-heading)
+      (info-noter--heading-adjustment (car arg)))))
 
 (defun info-noter/copy-text ()
-  "TODO.
-If ARG choose again."
+  "Copy text to note file."
   (interactive)
   (let ((text (thing-at-point 'sentence t)))
     (with-current-buffer info-noter/current-note-file
@@ -66,7 +68,8 @@ If ARG choose again."
 ;;; Helper Functions
 
 (defun info-noter--set-info-file (arg)
-  "Set info file."
+  "Set info file.
+TODO ARG"
   (setq info-noter/current-note-file
         (if arg
             (expand-file-name
@@ -91,6 +94,20 @@ If ARG choose again."
                            (buffer-name buffer))
                           extension)))
               (map 'list #'window-buffer (window-list))))
+
+;; TODO Add number for promote
+(defun info-noter--heading-adjustment (arg)
+  "Adjust heading with respect to ARG.
+nil: One level down.
+4: Same level
+16: One level up."
+  (cond ((eq arg 4)
+         (progn
+           (org-promote)))
+        ((eq arg 16)
+         (dotimes (var 2)
+           (org-promote)))))
+
 
 (provide 'info-noter)
 ;;; info-note.el ends here
